@@ -4,11 +4,12 @@ from flask_httpauth import HTTPTokenAuth
 
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
-from ld import config
+from ld.ext import config
 
 auth=HTTPTokenAuth(scheme='Bearer')
 
-serializer = Serializer(config.security.SECRET_KEY, expires_in=1800)
+print(config)
+serializer = Serializer(config["security"]["SECRET_KEY"], expires_in=1800)
 
 
 def encrypt(password):

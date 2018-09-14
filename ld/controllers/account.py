@@ -44,8 +44,3 @@ def set_account_pwd(oldpwd,newpwd):
 
 
 
-@auth.verify_token
-def verify_token(token):
-    """验证token"""
-    g.user = Account.query.filter_by(token=token).first()
-    return g.user is not None
