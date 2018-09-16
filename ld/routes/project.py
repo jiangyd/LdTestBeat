@@ -51,6 +51,7 @@ class ProjectList(Resource):
         parse.add_argument('page',type=int,required=True,location=['args'])
         parse.add_argument('pagesize',type=int,location=['args'])
         args=parse.parse_args()
-        return
+        return project_ctrl.get_list_project(page=args.page,pagesize=args.pagesize)
 
 api.add_resource(Project,'/api/project')
+api.add_resource(ProjectList,'/api/project/list')
