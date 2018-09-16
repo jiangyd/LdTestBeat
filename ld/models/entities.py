@@ -6,7 +6,22 @@ sys.path.append(base_path)
 
 from ld.ext import db
 
-class Account(db.Model):
+
+class BaseMixin(object):
+    def to_dict(self,columns=None,exclude_columns=None):
+        if exclude_columns is None:
+            exclude_columns=[]
+        d={}
+        for column in self.__table__.columns:
+            if columns is not None and column.name not in columns:
+                continue
+            if column.name in exclude_columns:
+                continue
+            print(column,getattr(self,column.name))
+            d[column.name]=getattr(self,column.name)
+        return d
+
+class Account(db.Model,BaseMixin):
     StatusDeleted=2
     __tablename__="account"
     __table_args__ = {"extend_existing": True}
@@ -22,7 +37,8 @@ class Account(db.Model):
     status=db.Column(db.Integer,default=1,nullable=False) # 1:ok,2:deleted
 
 
-class Project(db.Model):
+class Project(db.Model,BaseMixin):
+    StatusDeleted = 2
     __tablename__="project"
     __table_args__ = {"extend_existing": True}
     id=db.Column(db.Integer,primary_key=True,autoincrement=True)
@@ -35,13 +51,15 @@ class Project(db.Model):
 
     members=db.relationship('Account',secondary="project_member",backref='projects')
 
-class ProjectMember(db.Model):
+
+
+class ProjectMember(db.Model,BaseMixin):
     __tablename__="project_member"
     __table_args__ = {"extend_existing": True}
     member_id=db.Column(db.Integer,db.ForeignKey('account.id',ondelete='CASCADE'),primary_key=True)
     project_id=db.Column(db.Integer,db.ForeignKey('project.id',ondelete='CASCADE'),primary_key=True)
 
-class ProjectInterface(db.Model):
+class ProjectInterface(db.Model,BaseMixin):
     __tablename__="interface"
     __table_args__ = {"extend_existing": True}
     id=db.Column(db.Integer,primary_key=True,autoincrement=True)
@@ -59,7 +77,7 @@ class ProjectInterface(db.Model):
     create_author_id=db.Column(db.Integer,db.ForeignKey('account.id'))
     update_author_id=db.Column(db.Integer,db.ForeignKey('account.id'))
 
-class Environment(db.Model):
+class Environment(db.Model,BaseMixin):
     __tablename__="enviroment"
     __table_args__ = {"extend_existing": True}
     id=db.Column(db.Integer,primary_key=True,autoincrement=True)

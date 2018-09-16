@@ -8,13 +8,28 @@ except_dict = {
     },
     'LoginFail':{
         'code':'LoginFail',
-        'status':403,
+        'status':401,
         'message':'用户或秘密错误'
     },
     'AccountNotFound':{
         'code':'AccountNotFound',
         'status':403,
         'message':'找不到该用户'
+    },
+    'OldPwdIsError':{
+        'code':'OldPwdIsError',
+        'status':403,
+        'message':'原始密码错误'
+    },
+    'ProjectIsExist':{
+        'code':'ProjectIsExist',
+        'status':'403',
+        'message':'项目已存在'
+    },
+    'ProjectNotFound':{
+        'code':'ProjectNotFound',
+        'status':'403',
+        'message':'项目不存在'
     }
 }
 

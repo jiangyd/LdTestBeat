@@ -1,6 +1,7 @@
 from flask import Flask
 from ld.ext import api,db
 from ld.routes.account import account_bp
+from ld.routes.project import project_bp
 
 from ld.ext import config
 
@@ -20,7 +21,8 @@ app.config["SQLALCHEMY_ECHO"]=False
 db.app=app
 db.init_app(app)
 
-app.register_blueprint(account_bp,url_prefix="/api")
+app.register_blueprint(account_bp,url_prefix="account")
+app.register_blueprint(project_bp,url_prefix="preoject")
 api.init_app(app)
 
 

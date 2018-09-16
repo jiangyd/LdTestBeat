@@ -8,12 +8,19 @@ from ld.ext import config
 
 auth=HTTPTokenAuth(scheme='Bearer')
 
-print(config)
+
 serializer = Serializer(config["security"]["SECRET_KEY"], expires_in=1800)
 
 
 def encrypt(password):
     return generate_password_hash(password)
+
+
+def check_password(pwd1,pwd2):
+    #pwd1 in database
+    #pwd2 from request params
+    print(pwd1,pwd2)
+    return check_password_hash(pwd1,pwd2)
 
 
 def create_token(data):
