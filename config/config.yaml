@@ -1,9 +1,0 @@
-database:
-  db_connect: "mysql+pymysql://root:123456@127.0.0.1:3306/ld"
-
-security:
-  SECRET_KEY: "abcdefgjgjgjgj"
-
-redis:
-  host: "127.0.0.1"
-
