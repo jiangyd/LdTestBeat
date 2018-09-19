@@ -54,12 +54,7 @@ def get_project(project_id):
 
 def get_list_project(page,pagesize):
     p=Project.query.filter(Project.status!=Project.StatusDeleted).paginate(page=page,per_page=pagesize)
-    print(p.total)
-    print(p.items)
-    print(p.pages)
-    print(dir(p))
-    print(p)
     data=[]
     for i in p.items:
         data.append(i.to_dict())
-    return {"pages":p.pages,"data":data,"total":p.total}
+    return {"page":p.page,"objects":data,"total":p.total,"total_pages":p.pages}

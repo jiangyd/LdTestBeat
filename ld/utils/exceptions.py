@@ -13,7 +13,7 @@ except_dict = {
     },
     'AccountNotFound':{
         'code':'AccountNotFound',
-        'status':403,
+        'status':404,
         'message':'找不到该用户'
     },
     'OldPwdIsError':{
@@ -23,13 +23,18 @@ except_dict = {
     },
     'ProjectIsExist':{
         'code':'ProjectIsExist',
-        'status':'403',
+        'status':403,
         'message':'项目已存在'
     },
     'ProjectNotFound':{
         'code':'ProjectNotFound',
-        'status':'403',
+        'status':404,
         'message':'项目不存在'
+    },
+    'EnvKeyIsExist':{
+        'code':'EnvKeyIsExist',
+        'status':403,
+        'message':'key已存在'
     }
 }
 

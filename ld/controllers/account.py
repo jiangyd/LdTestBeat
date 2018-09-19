@@ -1,5 +1,5 @@
 from ld.models.entities import Account
-from ld.ext import db
+from ld.ext import db,r
 from sqlalchemy import or_, and_
 from uuid import uuid4
 import time
@@ -24,9 +24,9 @@ def login(account, passwd):
     if userinfo is None:
         raise exceptions.LoginFail()
     else:
-        print("cc")
         if params.check_password(userinfo.pwd,passwd):
             token=params.create_token({"account":account,"passwd":userinfo.pwd,"time":int(time.time())})
+            r.set(name=token,value=account,ex=3600)
             return token
         else:
             raise exceptions.LoginFail()
